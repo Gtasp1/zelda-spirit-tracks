@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Nombre del Juego NDS</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            background: #000;
+            overflow: hidden;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+        #game-container {
+            width: 100%;
+            height: 100%;
+        }
+        #start-screen {
+            position: fixed;
+            inset: 0;
+            background: #111;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            text-align: center;
+            padding: 20px;
+        }
+        #start-btn {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            font-size: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        #start-btn:active {
+            background: #45a049;
+        }
+        #status {
+            margin-top: 16px;
+            font-size: 14px;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div id="start-screen">
+        <h2>Nombre del Juego</h2>
+        <p>Pulsa el botón para cargar el juego</p>
+        <p><small>En móvil puede tardar un poco más</small></p>
+        <button id="start-btn">▶ Jugar</button>
+        <div id="status"></div>
+    </div>
+
+    <div id="game-container"></div>
+
+    <script>
+        document.getElementById('start-btn').addEventListener('click', function () {
+            this.style.display = 'none';
+            document.getElementById('status').textContent = 'Cargando... espera un momento';
+
+            EJS_player = '#game-container';
+            EJS_core = 'nds';                              // Nintendo DS
+            EJS_gameUrl = 'juego.nds';                     // ← cambia por el nombre de tu ROM
+            EJS_language = 'es-ES';                        // menús del emulador en español
+            EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
+            EJS_startOnLoaded = true;
+            EJS_color = '#000000';
+
+            window.EJS_ready = function () {
+                document.getElementById('start-screen').style.display = 'none';
+            };
+
+            const script = document.createElement('script');
+            script.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
+            document.body.appendChild(script);
+        });
+    </script>
+</body>
+</html>
